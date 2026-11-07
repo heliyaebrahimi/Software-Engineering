@@ -1,0 +1,45 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "مشتری" as Customer
+actor "اپراتور دستگاه" as Operator
+actor "درگاه پرداخت بانکی" as PaymentGateway
+actor "تعمیرکار" as Technician
+
+rectangle "سیستم دستگاه فروش خودکار هوشمند" {
+  usecase "مشاهده کالاها و قیمت‌ها" as UC1
+  usecase "انتخاب کالا" as UC2
+  usecase "پرداخت هزینه کالا" as UC3
+  usecase "اعتبارسنجی پرداخت" as UC4
+  usecase "بررسی موجودی کالا" as UC5
+  usecase "تحویل کالا" as UC6
+  usecase "محاسبه و بازگرداندن
+باقی‌مانده وجه" as UC7
+  usecase "درخواست بازپرداخت" as UC8
+  usecase "مشاهده موجودی" as UC9
+  usecase "به‌روزرسانی موجودی" as UC10
+  usecase "مدیریت قیمت و تنظیمات" as UC11
+  usecase "مشاهده و ثبت خطاهای دستگاه" as UC12
+}
+
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC6
+Customer --> UC7
+Customer --> UC8
+
+UC3 .> UC4 : <<include>>
+UC3 .> UC5 : <<include>>
+UC6 .> UC5 : <<include>>
+UC7 .> UC3 : <<extend>>
+UC8 .> UC3 : <<extend>>
+
+PaymentGateway --> UC4
+Operator --> UC9
+Operator --> UC10
+Operator --> UC11
+Technician --> UC12
+
+@enduml
