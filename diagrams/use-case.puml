@@ -1,0 +1,48 @@
+@startuml
+
+left to right direction
+
+actor "مشتری" as Customer
+actor "اپراتور دستگاه" as Operator
+actor "درگاه پرداخت بانکی" as Gateway
+actor "تعمیرکار" as Technician
+
+rectangle "سیستم دستگاه فروش خودکار هوشمند" {
+
+    usecase "مشاهده کالاها و قیمت‌ها" as UC1
+    usecase "انتخاب کالا" as UC2
+    usecase "پرداخت هزینه کالا" as UC3
+    usecase "اعتبارسنجی پرداخت" as UC4
+    usecase "بررسی موجودی کالا" as UC5
+    usecase "تحویل کالا" as UC6
+    usecase "بازگرداندن باقی‌مانده وجه" as UC7
+    usecase "بازپرداخت وجه" as UC8
+
+    usecase "مشاهده موجودی" as UC9
+    usecase "به‌روزرسانی موجودی" as UC10
+    usecase "مدیریت قیمت و تنظیمات" as UC11
+    usecase "مشاهده و ثبت خطاها" as UC12
+}
+
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC6
+Customer --> UC7
+Customer --> UC8
+
+UC3 ..> UC4 : <<include>>
+UC6 ..> UC5 : <<include>>
+
+UC7 ..> UC3 : <<extend>>
+UC8 ..> UC6 : <<extend>>
+
+Gateway --> UC4
+
+Operator --> UC9
+Operator --> UC10
+Operator --> UC11
+
+Technician --> UC12
+
+@enduml
